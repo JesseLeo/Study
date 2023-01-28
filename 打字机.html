@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>文字机器</title>
+  </head>
+  <style>
+    body {
+      font-family: "neuropol_xregular";
+      text-align: center;
+      letter-spacing: 2px;
+      overflow: hidden;
+      background: linear-gradient(#000, #00ffff, #000);
+    }
+
+    .container {
+      width: 1280px;
+      margin: auto;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    #typewriter {
+      width: fit-content;
+      margin: auto;
+    }
+
+    #typewriter p {
+      font-size: 1.5rem;
+    }
+
+    span {
+      animation: blinker 1s linear infinite;
+    }
+
+    @keyframes blinker {
+      50% {
+        opacity: 0;
+      }
+    }
+
+    @media (max-width: 1280px) {
+      .container {
+        width: 95%;
+      }
+    }
+
+    @media (max-width: 480px) {
+      #typewriter p {
+        font-size: 1rem;
+      }
+    }
+    @font-face {
+      font-family: "neuropol_xregular";
+      src: url("neuropol-x-free.regular-webfont.woff2") format("woff2"),
+        url("neuropol-x-free.regular-webfont.woff") format("woff");
+      font-weight: normal;
+      font-style: normal;
+    }
+  </style>
+  <body>
+    <div class="container">
+      <div id="typewriter">
+        <p id="quote"></p>
+      </div>
+    </div>
+  </body>
+  <script>
+    var quoteArray = [];
+    var index = 0;
+    var textPosition = 0;
+    var flag = true;
+
+    loadQuote = () => {
+      const url = "https://api.quotable.io/random";
+
+      fetch(url)
+        .then((response) => {
+          if (!response.ok) throw Error(response.statusText);
+          return response.json();
+        })
+        .then((data) => {
+          quoteArray[index] = data.content;
+        })
+        .catch((error) => console.log(error));
+    };
+
+    typewriter = () => {
+      if (flag) {
+        loadQuote();
+        quoteArray[index] += "";
+        flag = false;
+      }
+
+      document.querySelector("#quote").innerHTML =
+        quoteArray[index].substring(0, textPosition) + "<span>\u25AE</span>";
+
+      if (textPosition++ != quoteArray[index].length) {
+        setTimeout("typewriter()", 100);
+      } else {
+        quoteArray[index] = " ";
+        setTimeout("typewriter()", 4000);
+        textPosition = 0;
+        flag = true;
+      }
+    };
+
+    window.addEventListener("load", typewriter);
+  </script>
+</html>

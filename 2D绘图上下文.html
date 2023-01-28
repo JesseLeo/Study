@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>2D绘图</title>
+  </head>
+  <style>
+    #drawing {
+      display: block;
+      border: 1px solid black;
+      margin: 0 auto;
+    }
+  </style>
+  <body>
+    <canvas id="drawing" width="200" height="200"> </canvas>
+  </body>
+  <script>
+    var draw = document.getElementById("drawing");
+    if (draw.getContext) {
+      console.log(draw.getContext("2d"));
+      let context = draw.getContext("2d");
+      // context.strokeStyle = "red";
+      // context.strokeRect(50, 50, 101, 101);
+      // context.fillStyle = "#ff0000";
+      // context.fillRect(30, 30, 100, 100);
+      // context.fillStyle = "rgba(0,0,225,0.5)";
+      // context.fillRect(60, 60, 100, 100);
+      // context.clearRect(85, 85, 20, 20);
+
+      context.beginPath();
+      context.arc(100, 100, 99, 0, 2 * Math.PI, false);
+      context.moveTo(194, 100);
+      context.arc(100, 100, 94, 0, 2 * Math.PI, false);
+      // context.translate(100, 100);
+      // context.rotate(1);
+      context.moveTo(100, 100);
+      context.lineTo(100, 15);
+      context.moveTo(100, 100);
+      context.lineTo(35, 100);
+      context.stroke();
+      context.font = "bold 14 Arial";
+      context.textAlign = "center";
+      context.textBaseline = "middle";
+      context.fillText("12", 100, 10);
+    }
+  </script>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>圣杯布局</title>
+  </head>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+      text-align: center;
+    }
+    .center {
+      background-color: brown;
+      width: 100%;
+    }
+    .left {
+      background-color: skyblue;
+      width: 200px;
+      margin-left: -100%;
+      position: relative;
+      left: -200px;
+    }
+    .right {
+      background-color: aquamarine;
+      width: 300px;
+      margin-left: -300px;
+      position: relative;
+      right: -300px;
+    }
+    .center,
+    .left,
+    .right {
+      float: left;
+      height: 500px;
+      font-size: 30px;
+      line-height: 500px;
+    }
+    .clearfix::after {
+      content: "";
+      display: block;
+      clear: both;
+    }
+    .wrapper {
+      padding: 0 300px 0 200px;
+    }
+    .header {
+      background-color: antiquewhite;
+    }
+    .footer {
+      background-color: azure;
+    }
+    .header,
+    .footer {
+      height: 100px;
+      width: 100%;
+      font-size: 30px;
+      line-height: 100px;
+    }
+  </style>
+
+  <body>
+    <header class="header">头部</header>
+    <div class="clearfix wrapper">
+      <!-- 因为要优先加载，所以中间区域放在布局的最前面 -->
+      <div class="center">主区域</div>
+      <div class="left">左区域</div>
+      <div class="right">右区域</div>
+    </div>
+    <footer class="footer">底部</footer>
+  </body>
+</html>

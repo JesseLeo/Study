@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>鼠标拖动</title>
+  </head>
+  <style>
+    * {
+      padding: 0;
+      margin: 0;
+    }
+
+    .square {
+      width: 100px;
+      height: 100px;
+      position: absolute;
+      background-color: bisque;
+      text-align: center;
+      line-height: 100px;
+      color: aqua;
+      cursor: move;
+      z-index: 999;
+    }
+
+    #time {
+      width: 500px;
+      height: 200px;
+      position: absolute;
+      margin: auto;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      text-align: center;
+      line-height: 200px;
+      background-color: transparent;
+      box-shadow: 0 0 15px #000;
+      font-size: 50px;
+      font-weight: 400;
+      font-style: oblique;
+      z-index: 99;
+    }
+  </style>
+  <body>
+    <div class="square"></div>
+    <div id="time"></div>
+  </body>
+  <script>
+    let el = document.getElementsByClassName("square")[0];
+    el.addEventListener("mousedown", (e) => {
+      e = e || window.event;
+      let xDown = e.offsetX;
+      let yDown = e.offsetY;
+      document.onmousemove = (e) => {
+        e = e || window.event;
+        let x = e.clientX - xDown;
+        let y = e.clientY - yDown;
+        el.style.top = y + "px";
+        el.style.left = x + "px";
+      };
+    });
+    document.onmouseup = (e) => {
+      document.onmousemove = null;
+    };
+
+    let timer = document.getElementById("time");
+    setInterval(() => {
+      let date = new Date();
+      let year = date.getFullYear();
+      let mouth = date.getMonth();
+      let day = date.getDay();
+      let hour = date.getHours();
+      let min = date.getMinutes();
+      let sec = date.getSeconds();
+      timer.innerText = `${year}-${mouth + 1}-${day}  ${hour}:${min}:${sec}`;
+    }, 1000);
+  </script>
+</html>
